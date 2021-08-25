@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {DashboardModel} from "../models/dashboard-model";
 import {webSocket} from "rxjs/webSocket";
 import {StatusEnum} from "../models/status-enum";
-import {environment} from "../../environments/environment";
+import {environment} from "../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
