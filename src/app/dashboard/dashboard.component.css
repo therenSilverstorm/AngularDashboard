@@ -1,0 +1,59 @@
+div {
+  width: 200px;
+}
+
+.header-online {
+  padding: 0 1rem 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  height: 2.5rem;
+  text-align: center;
+  background-color: forestgreen;
+  color: white;
+}
+
+.header-offline{
+  padding: 0 1rem 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  height: 2.5rem;
+  text-align: center;
+  background-color: orangered;
+  vertical-align: middle;
+  color: white;
+}
+
+.connect-button{
+  background-color: #439143;
+}
+
+
+
+.header-online span {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.header-offline span{
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+
+p{
+  margin: 10px;
+}
+
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+
+
+
+
+

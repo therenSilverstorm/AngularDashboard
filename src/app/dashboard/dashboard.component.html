@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="header-online" *ngIf="dashboard.status === 'ONLINE'; else offlineBlock">
+    <mat-icon>check_circle</mat-icon>
+    <span>{{dashboard?.ip}}</span>
+  </div>
+  <ng-template class="header-offline" #offlineBlock>
+    <div class="header-offline">
+      <mat-icon>clear</mat-icon>
+      <span>{{dashboard?.ip}}</span>
+    </div>
+
+
+  </ng-template>
+  <body mat-dialog-content>
+  <p>OS: {{dashboard.os}}</p>
+  <p>Local Time: {{dashboard.localTime | date:'h:mm a'}}</p>
+  <p>Time zone: {{dashboard.timeZone}}</p>
+  <p>Browser: {{dashboard.browser}}</p>
+  <p>Resolution: {{dashboard.resolution}}</p>
+  <div class="buttons">
+    <button  [disabled]="dashboard.status === 'ONLINE' || !dashboard.ip" mat-raised-button  (click)="connect()">connect</button>
+    <button [disabled]="dashboard.status === 'OFFLINE'" mat-raised-button  (click)="disconnect()">disconnect</button>
+  </div>
+
+
+  <hr>
+  </body>
+</div>
+
+
