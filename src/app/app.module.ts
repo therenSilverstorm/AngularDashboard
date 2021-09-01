@@ -69,6 +69,7 @@ export function initializeApp1(dashboardService: DashboardService) {
     BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
+
     StoreModule.forRoot({clients: clientReducer, status : statusReducer.reducer }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     MatTableModule,

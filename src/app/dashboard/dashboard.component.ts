@@ -5,8 +5,6 @@ import {
 } from '@angular/core';
 import {DashboardService} from "../services/dashboard.service";
 import {DashboardModel} from "../models/dashboard-model";
-import {WebsocketService} from "../services/websocket.service";
-
 import {DataShareService} from "../services/data-share.service";
 import {Store} from "@ngrx/store";
 import {StatusEnum} from "../models/status-enum";
@@ -30,7 +28,7 @@ export class DashboardComponent implements OnInit {
   dashboard: DashboardModel
 
 
-  constructor(private dashboardService: DashboardService, private ws: WebsocketService, private dataShare: DataShareService,
+  constructor(private dashboardService: DashboardService, private dataShare: DataShareService,
               private store: Store, private test : Ng2StompjsService, private statusStore : Store<State>) {
 
     this.dashboard = this.dashboardService.getDashboard()
