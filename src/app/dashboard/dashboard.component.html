@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header-online" *ngIf="dashboard.status === 'ONLINE'; else offlineBlock">
     <mat-icon>check_circle</mat-icon>
-    <span>{{dashboard?.ip}}</span>
+    <span>{{dashboard.ip}}</span>
   </div>
   <ng-template class="header-offline" #offlineBlock>
     <div class="header-offline">
@@ -21,10 +21,13 @@
     <button  [disabled]="dashboard.status === 'ONLINE' || !dashboard.ip" mat-raised-button  (click)="connect()">connect</button>
     <button [disabled]="dashboard.status === 'OFFLINE'" mat-raised-button  (click)="disconnect()">disconnect</button>
   </div>
-
-
   <hr>
   </body>
+
 </div>
+
+
+
+
 
 

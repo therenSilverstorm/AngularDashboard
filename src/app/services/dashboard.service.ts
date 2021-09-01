@@ -1,14 +1,15 @@
-import { Injectable, OnInit} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {DashboardModel} from "../models/dashboard-model";
 import {StatusEnum} from "../models/status-enum";
 import {Platform} from '@angular/cdk/platform';
 import {HttpClient} from "@angular/common/http";
+import {UUID} from "angular2-uuid";
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService implements OnInit {
+export class DashboardService {
   dashboard: DashboardModel
 
   constructor(public platform: Platform, private http: HttpClient) {
@@ -16,32 +17,43 @@ export class DashboardService implements OnInit {
   }
 
   getDashboard(): DashboardModel {
-    this.dashboard = new DashboardModel();
-    this.dashboard.status = StatusEnum.OFFLINE
-    this.dashboard.os = 'Windows'
-    this.dashboard.localTime = new Date().getTime()
-    this.dashboard.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    this.dashboard.resolution = this.getScreenResolution()
-    return this.dashboard
+    if (this.dashboard === undefined) {
+      this.dashboard = new DashboardModel();
+      this.dashboard.status = StatusEnum.OFFLINE;
+      this.dashboard.os = 'Windows';
+      this.dashboard.localTime = new Date().getTime();
+      this.dashboard.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      this.dashboard.resolution = this.getScreenResolution();
+      this.dashboard.id = this.getId();
+      this.getIp();
+      this.updateBrowser();
+    }
+    return this.dashboard;
   }
 
   updateIp(ip) {
     this.dashboard.ip = ip
   }
 
-  detectBrowser() {
+  updateBrowser() {
+    this.dashboard.browser = this.detectBrowser()
+  }
+
+  detectBrowser(): string {
     if (this.platform.EDGE) {
-      this.dashboard.browser = 'Microsoft Edge'
+      return 'Microsoft Edge'
     } else if (this.platform.FIREFOX) {
-      this.dashboard.browser = 'Mozilla FireFox'
+      return 'Mozilla FireFox'
     } else if (this.platform.BLINK) {
-      this.dashboard.browser = 'Chrome'
+      return 'Chrome'
     } else if (this.platform.WEBKIT) {
-      this.dashboard.browser = 'Opera'
+      return 'Opera'
     } else if (this.platform.TRIDENT) {
-      this.dashboard.browser = 'Internet Explorer'
+      return 'Internet Explorer'
     } else if (this.platform.SAFARI) {
-      this.dashboard.browser = 'Safari'
+      return 'Safari'
+    } else {
+      return "Not detected"
     }
   }
 
@@ -58,12 +70,22 @@ export class DashboardService implements OnInit {
     })
   }
 
-
-
-  ngOnInit(): void {
-    this.getIp()
+  getId(): any {
+    let id = sessionStorage.getItem('id')
+    if (id == null) {
+      id = UUID.UUID();
+      sessionStorage.setItem('id', id)
+    }
+    console.log(id)
+    return id;
 
   }
+
+    // ngOnInit(): void {
+    //   this.getIp()
+    //
+    // }
+
 
 
 }
