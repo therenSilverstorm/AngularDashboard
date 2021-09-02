@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, Subject} from "rxjs";
 
 @Injectable({
@@ -12,9 +12,9 @@ export class DataShareService {
     this.myMethod$ = this.myMethodSubject.asObservable();
   }
 
+  //Changing DashboardModel status (EnumStatus)
   shareData(data) {
-    console.log(JSON.stringify(data)); // I have data! Let's return it so subscribers can use it!
-    // we can do stuff with data if we want
+    console.log(JSON.stringify(data));
     this.myMethodSubject.next(data);
   }
 

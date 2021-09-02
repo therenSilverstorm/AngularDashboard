@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  webSocket : 'http://localhost:8080/gkz-stomp-endpoint',
+  sendClientsTopic : '/topic/sendClients',
+  ipify : "http://api.ipify.org/?format=json",
+  reconnectDelay : 5000,
+  heartbeatIn : 0,
+  heartbeatOut : 20000,
 };
 
 /*

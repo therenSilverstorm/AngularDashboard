@@ -13,12 +13,12 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {ClientListComponent} from "./clients/client-list/client-list.component";
 import {LocalStorageService} from "ngx-webstorage";
-import {TestListComponent} from './test/test-list/test-list.component';
-import {clientReducer} from "../app/clients/reducer/clients.reducer"
+import {clientReducer} from "./store/clientsEntities/clients.reducer"
 import {MatTableModule} from "@angular/material/table";
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
-import {socketProvider} from "./test/test-list/StompConfig";
+import {socketProvider} from "./configuration/StompConfig";
 import * as statusReducer from "../app/store/status/status.reducer"
+
 
 
 
@@ -36,13 +36,13 @@ const stompConfig: StompConfig = {
 
   // How often to heartbeat?
   // Interval in milliseconds, set to 0 to disable
-  heartbeat_in: 0, // Typical value 0 - disabled
-  heartbeat_out: 20000, // Typical value 20000 - every 20 seconds
+  heartbeat_in: environment.heartbeatIn, // Typical value 0 - disabled
+  heartbeat_out: environment.heartbeatOut, // Typical value 20000 - every 20 seconds
 
   // Wait in milliseconds before attempting auto reconnect
   // Set to 0 to disable
   // Typical value 5000 (5 seconds)
-  reconnect_delay: 5000,
+  reconnect_delay: environment.reconnectDelay,
 
   // Will log diagnostics on console
   debug: true
@@ -59,7 +59,6 @@ export function initializeApp1(dashboardService: DashboardService) {
     AppComponent,
     DashboardComponent,
     ClientListComponent,
-    TestListComponent
   ],
 
   imports: [

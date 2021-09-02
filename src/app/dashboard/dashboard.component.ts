@@ -1,6 +1,6 @@
 import {
   Component,
-   HostListener,
+  HostListener,
   OnInit
 } from '@angular/core';
 import {DashboardService} from "../services/dashboard.service";
@@ -8,11 +8,9 @@ import {DashboardModel} from "../models/dashboard-model";
 import {DataShareService} from "../services/data-share.service";
 import {Store} from "@ngrx/store";
 import {StatusEnum} from "../models/status-enum";
-
 import {Ng2StompjsService} from "../services/ng2-stompjs.service";
 import {State} from "../store/status/state";
-import {connected, disconnected} from "../store/status/status.actions";
-
+import {disconnected} from "../store/status/status.actions";
 
 
 @Component({
@@ -24,63 +22,41 @@ import {connected, disconnected} from "../store/status/status.actions";
 
 export class DashboardComponent implements OnInit {
 
-
   dashboard: DashboardModel
 
-
-  constructor(private dashboardService: DashboardService, private dataShare: DataShareService,
-              private store: Store, private test : Ng2StompjsService, private statusStore : Store<State>) {
+  constructor(private dashboardService: DashboardService, private dataShare: DataShareService, private store: Store,
+              private websocket: Ng2StompjsService, private statusStore: Store<State>) {
 
     this.dashboard = this.dashboardService.getDashboard()
 
     this.dataShare.myMethod$.subscribe((data) => {
       this.dashboard.status = data
     });
-
-
-
-   // this.dataShare.shareData(this.dashboard)
-   //  if (this.dashboard.ip !== undefined) {
-   //    //this.ws.connect(this.dashboard)
-   //    this.test.subscribe(this.dashboard)
-   //  } else {
-   //    setTimeout(() => {
-   //      //this.ws.connect(this.dashboard)
-   //      this.test.subscribe(this.dashboard)
-   //    }, 1000)
-   //  }
-
-
-
-
   }
 
-
   ngOnInit(): void {
-    this.test.disconnected$.subscribe(() => {
+    this.websocket.disconnected$.subscribe(() => {
       this.dataShare.shareData(StatusEnum.OFFLINE)
       this.statusStore.dispatch(new disconnected())
     });
   }
 
+  //Connects to Websocket
   connect() {
-    this.test.subscribe(this.dashboard)
+    this.websocket.subscribe(this.dashboard)
   }
 
+  //Disconnects from Websocket
   disconnect() {
-    this.test.unsubscribe(this.dashboard)
+    this.websocket.unsubscribe(this.dashboard)
   }
 
 
-
-  CHANGE
+  //Listening to 'beforeunload' event, in case of force tab close.
   @HostListener('window:beforeunload', ['$event'])
   async onBeforeUnload(): Promise<void> {
-     this.test.unsubscribe(this.dashboard);
+    this.websocket.unsubscribe(this.dashboard);
   }
-
-
-
 
 
 }

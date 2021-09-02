@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
-import {Message, Stomp} from "@stomp/stompjs";
+import {Message} from "@stomp/stompjs";
 import {Observable, Subscription} from "rxjs";
 import {DashboardModel} from "../../models/dashboard-model";
-import * as actions from "../actions/clients.actions"
-import {clientSelectors} from "../reducer/clients.reducer";
-import {getStatus} from "../../store/status/index";
+import * as actions from "../../store/clientsEntities/clients.actions"
+import {clientSelectors} from "../../store/clientsEntities/clients.reducer";
+import {getStatus} from "../../store/status";
 import {State} from "../../store/status/state";
 import {StompService} from "@stomp/ng2-stompjs";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-client-list',
@@ -35,17 +36,10 @@ export class ClientListComponent implements OnInit {
 
 
   check() {
-    // Stream of messages
-    this.messages = this._stompService.subscribe('/topic/hi');
+//Subscribes to WebSocket message topic
+    this.messages = this._stompService.subscribe(environment.sendClientsTopic);
 
-    // Subscribe a function to be run on_next message
     this.subscription = this.messages.subscribe(this.on_next);
-
-
-    //CHANGE
-    //this.dataShare.shareData(StatusEnum.ONLINE)
-    // this.sendMessage(dashboard)
-
 
   }
 

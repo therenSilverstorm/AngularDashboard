@@ -17,9 +17,9 @@
   <ng-container matColumnDef="status">
     <th mat-header-cell *matHeaderCellDef>status </th>
     <ng-container *matCellDef="let element">
-      <td  mat-cell *ngIf="element.status === 'ONLINE'; else offline"> <mat-icon>check_circle</mat-icon> </td>
+      <td  mat-cell *ngIf="element.status === 'ONLINE'; else offline"> <mat-icon class="conn">check_circle</mat-icon> </td>
     </ng-container>
-    <ng-template #offline><mat-icon>clear</mat-icon> </ng-template>
+    <ng-template #offline><mat-icon class="disconnect">clear</mat-icon> </ng-template>
 
   </ng-container>
 
@@ -33,16 +33,7 @@
 </table>
 
 <ng-template #disconnected>
-  <div>
-    <span>Disconnected</span>
+  <div class="disconnectedTable">
+    <span>Connection not established</span>
   </div>
 </ng-template>
-
-<!--<span></span>-->
-
-<!--<div *ngIf="!(status$  | async); else test">-->
-<!--  ZOPA-->
-<!--</div>-->
-<!--<ng-template #test>-->
-<!--  ZALUPKA-->
-<!--</ng-template>-->

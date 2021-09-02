@@ -1,9 +1,10 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {DashboardModel} from "../models/dashboard-model";
 import {StatusEnum} from "../models/status-enum";
 import {Platform} from '@angular/cdk/platform';
 import {HttpClient} from "@angular/common/http";
 import {UUID} from "angular2-uuid";
+import {environment} from "../../environments/environment";
 
 
 @Injectable({
@@ -65,7 +66,7 @@ export class DashboardService {
 
 
   getIp() {
-    this.http.get("http://api.ipify.org/?format=json").subscribe((res: any) => {
+    this.http.get(environment.ipify).subscribe((res: any) => {
       this.updateIp(res.ip)
     })
   }
@@ -77,15 +78,9 @@ export class DashboardService {
       sessionStorage.setItem('id', id)
     }
     console.log(id)
+    console.log()
     return id;
 
   }
-
-    // ngOnInit(): void {
-    //   this.getIp()
-    //
-    // }
-
-
 
 }

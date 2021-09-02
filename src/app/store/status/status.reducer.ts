@@ -1,10 +1,9 @@
-import {Action, createReducer, createSelector, on} from '@ngrx/store';
-import * as statusActions from '../status/status.actions';
-import {OnlineStatusActionTypes, StatusActions} from "../status/status.actions";
+
+import {OnlineStatusActionTypes, StatusActions} from "./status.actions";
 
 
 export interface State {
-  status : boolean
+  status : boolean,
 }
 
 export const initialState: State = {
