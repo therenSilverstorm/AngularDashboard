@@ -16,11 +16,13 @@ It connects to the DashboardCompose Spring Boot server via WebSocket and subscri
 
 
 While disconnected, you will see this UI.
+
 ![2021-09-02 (2)](https://user-images.githubusercontent.com/64583883/131801494-8e06b811-1963-4ccb-8319-cbae37208b07.png)
 
 
 
 Uppon connection, you should see list of all connected/disconnected users.
+
 ![2021-09-02](https://user-images.githubusercontent.com/64583883/131800829-1f4765f4-1e86-40f5-a71e-19611f1f0d21.png)
 
 
